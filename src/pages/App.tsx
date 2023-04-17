@@ -1,13 +1,13 @@
 import React from "react";
 import { Admin, Resource, ListGuesser } from "react-admin";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import buildGraphQLProvider from "../dataProvider";
-import { AircraftCreate } from './aircrafts/create';
-import { AircraftEdit } from './aircrafts/edit';
-import { AircraftList } from './aircrafts/list';
-import LoginPage from "../pages/sessions/login";
-import authProvider from '../pages/sessions/authProvider';
-import '../pages/sessions/amplify-config';
+import buildGraphQLProvider from "../utils/dataProvider";
+import { AircraftCreate } from '../components/aircrafts/create';
+import { AircraftEdit } from '../components/aircrafts/edit';
+import { AircraftList } from '../components/aircrafts/list';
+import LoginPage from "./sessions/login";
+import authProvider from './sessions/authProvider';
+import './sessions/amplify-config';
 
 
 const client = new ApolloClient({
