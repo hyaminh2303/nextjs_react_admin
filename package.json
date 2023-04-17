@@ -10,9 +10,13 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.11",
+    "@aws-amplify/ui-components": "^1.9.40",
+    "@material-ui/core": "^4.12.4",
     "@types/node": "18.15.11",
     "@types/react": "18.0.33",
     "@types/react-dom": "18.0.11",
+    "amazon-cognito-identity-js": "^6.2.0",
+    "aws-amplify": "^5.0.25",
     "graphql": "^16.6.0",
     "next": "13.3.0",
     "ra-data-graphql-simple": "^4.8.4",
