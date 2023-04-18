@@ -9,11 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.11",
     "@types/node": "18.15.11",
     "@types/react": "18.0.33",
     "@types/react-dom": "18.0.11",
+    "graphql": "^16.6.0",
     "next": "13.3.0",
+    "ra-data-graphql-simple": "^4.8.4",
+    "ra-data-json-server": "^4.9.1",
     "react": "18.2.0",
+    "react-admin": "^4.9.1",
     "react-dom": "18.2.0",
     "typescript": "5.0.4"
   }
