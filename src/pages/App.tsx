@@ -11,7 +11,7 @@ import './sessions/amplify-config';
 
 
 const client = new ApolloClient({
-  uri: "http://cloud.sazae-technology.com:3000/graphql",
+  uri: process.env.NEXT_PUBLIC_API_URL,
   cache: new InMemoryCache(),
 });
 
