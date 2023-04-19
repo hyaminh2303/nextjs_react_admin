@@ -2,8 +2,10 @@ import * as React from 'react';
 import { useState } from 'react';
 import { useLogin, useNotify, Notification, Login, LoginFormProps } from 'react-admin';
 import { Auth } from 'aws-amplify';
-import { TextField, Button, Typography, Link } from '@mui/material';
+import { TextField, Button, Typography } from '@mui/material';
 import { makeStyles } from '@material-ui/styles';
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -77,68 +79,143 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
   );
 };
 
-const ForgotPasswordForm: React.FC = (props) => {
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  const notify = useNotify();
+const LoginPage: React.FC = (props) => {
+  const router = useRouter();
   const classes = useStyles();
+  const notify = useNotify();
+  const [forgotPassword, setForgotPassword] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [email, setEmail] = useState('');
+  const [code, setCode] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      console.log(email)
       await Auth.forgotPassword(email);
       setSubmitted(true);
+      setForgotPassword(false);
+      router.push('/#/reset-password');
     } catch (error) {
       notify('An error occurred while resetting your password');
     }
   };
 
-  if (submitted) {
-    return (
-      <div className={classes.form}>
-        <Typography variant="body1">
-          Instructions to reset your password have been sent to your email address
-        </Typography>
-      </div>
-    );
-  }
+  const handleVerifyCode = async () => {
+    try {
+      await Auth.forgotPasswordSubmit('', code, '');
+      setError('');
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
 
-  return (
-    <form onSubmit={handleSubmit} className={classes.form}>
-      <TextField
-        label="Email"
-        type="email"
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-        required
-        fullWidth
-        autoFocus
-        className={classes.input}
-      />
-      <Button type="submit" color="primary" variant="contained" className={classes.submitButton}>
-        Reset Password
-      </Button>
-    </form>
-  );
-};
-
-const LoginPage: React.FC = (props) => {
-  const classes = useStyles();
-  const [forgotPassword, setForgotPassword] = useState(false);
+  const handleResetPassword = async () => {
+    try {
+      await Auth.forgotPasswordSubmit(email, code, newPassword);
+      router.push('/#/login');
+      setSubmitted(false);
+      setForgotPassword(false);
+      toast.success('Password reset successfully');
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
 
   const handleForgotPasswordClick = () => {
+    router.push('/#/forgot-password');
     setForgotPassword(true);
   };
 
   const handleBackToLoginClick = () => {
+    router.push('/#/login');
     setForgotPassword(false);
+    setSubmitted(false);
+    setCode('');
+    setNewPassword('');
+    setConfirmNewPassword('');
+    setEmail('');
   };
 
   if (forgotPassword) {
     return (
       <Login {...props}>
-        <ForgotPasswordForm />
+        <form onSubmit={handleSubmit} className={classes.form}>
+          <TextField
+            label="Email"
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            required
+            fullWidth
+            autoFocus
+            className={classes.input}
+          />
+          <Button type="submit" color="primary" variant="contained" className={classes.submitButton}>
+            Reset Password
+          </Button>
+        </form>
+        <div className={classes.containerBtn}>
+          <Button onClick={handleBackToLoginClick}>Back to Login</Button>
+        </div>
+      </Login>
+    );
+  }
+
+  if (submitted) {
+    return (
+      <Login {...props}>
+        <form className={classes.form}>
+          <Typography variant="h5" mb={2}>
+            Reset Password
+          </Typography>
+          <Typography mb={2}>
+            Please enter the verification code sent to your email address:
+          </Typography>
+          {error && <Typography color="error">{error}</Typography>}
+          <TextField
+            label="Verification Code"
+            type="text"
+            fullWidth
+            value={code}
+            onChange={(event) => setCode(event.target.value)}
+          />
+          {code && (
+            <>
+              <Typography mb={2}>
+                Please enter your new password and confirm it:
+              </Typography>
+              <TextField
+                label="New Password"
+                type="password"
+                fullWidth
+                value={newPassword}
+                onChange={(event) => setNewPassword(event.target.value)}
+              />
+              <TextField
+                label="Confirm New Password"
+                type="password"
+                fullWidth
+                value={confirmNewPassword}
+                onChange={(event) => setConfirmNewPassword(event.target.value)}
+              />
+              <Button
+                variant="contained"
+                onClick={handleResetPassword}
+                disabled={newPassword !== confirmNewPassword}
+              >
+                Reset Password
+              </Button>
+            </>
+          )}
+          {!code && (
+            <Button variant="contained" onClick={handleVerifyCode}>
+              Verify Code
+            </Button>
+          )}
+        </form>
         <div className={classes.containerBtn}>
           <Button onClick={handleBackToLoginClick}>Back to Login</Button>
         </div>
