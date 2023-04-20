@@ -6,8 +6,8 @@ import { AircraftCreate } from './aircrafts/create';
 import { AircraftEdit } from './aircrafts/edit';
 import { AircraftList } from './aircrafts/list';
 import LoginPage from "./sessions/login";
-import authProvider from './sessions/authProvider';
-import './sessions/amplify-config';
+import authProvider from '../utils/authProvider';
+import '../utils/amplify-config';
 
 
 const client = new ApolloClient({
