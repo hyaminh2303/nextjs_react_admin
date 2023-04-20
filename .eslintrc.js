@@ -26,6 +26,7 @@ module.exports = {
   },
   rules: {
     // Place your custom rules here
+    '@typescript-eslint/ban-ts-comment': 'off', // Disable the ban-ts-comment rule
     'react/react-in-jsx-scope': 'off', // Not needed with Next.js
     '@typescript-eslint/explicit-module-boundary-types': 'off', // Disable this rule if you prefer not to enforce typing for all exported functions
   },
