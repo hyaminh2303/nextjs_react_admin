@@ -34,72 +34,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LoginForm: React.FC<LoginFormProps> = (props) => {
+const LoginPage: React.FC = (props) => {
+  const router = useRouter();
+  const classes = useStyles();
+  const notify = useNotify();
+  const login = useLogin();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const login = useLogin();
-  const notify = useNotify();
-  const classes = useStyles();
+  const [forgotPassword, setForgotPassword] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [emailForgotPassword, setEmailForgotPassword] = useState('');
+  const [code, setCode] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmitForgotPassword = async (event: React.FormEvent) => {
+    event.preventDefault();
+    try {
+      await Auth.forgotPassword(emailForgotPassword);
+      setSubmitted(true);
+      setForgotPassword(false);
+      router.push('/#/reset-password');
+    } catch (error) {
+      notify('An error occurred while resetting your password');
+    }
+  };
+
+  const handleSubmitLogin = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
       await Auth.signIn(email, password);
       login({ email });
     } catch (error) {
       notify('Invalid email or password');
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit} className={classes.form}>
-      <TextField
-        label="Email"
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-        required
-        fullWidth
-        autoFocus
-        className={classes.input}
-      />
-      <TextField
-        label="Password"
-        type="password"
-        value={password}
-        onChange={(event) => setPassword(event.target.value)}
-        required
-        fullWidth
-        className={classes.input}
-      />
-      <Button type="submit" color="primary" variant="contained" className={classes.submitButton}>
-        Login
-      </Button>
-      <Notification />
-    </form>
-  );
-};
-
-const LoginPage: React.FC = (props) => {
-  const router = useRouter();
-  const classes = useStyles();
-  const notify = useNotify();
-  const [forgotPassword, setForgotPassword] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [email, setEmail] = useState('');
-  const [code, setCode] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmNewPassword, setConfirmNewPassword] = useState('');
-  const [error, setError] = useState('');
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    try {
-      await Auth.forgotPassword(email);
-      setSubmitted(true);
-      setForgotPassword(false);
-      router.push('/#/reset-password');
-    } catch (error) {
-      notify('An error occurred while resetting your password');
     }
   };
 
@@ -114,7 +83,7 @@ const LoginPage: React.FC = (props) => {
 
   const handleResetPassword = async () => {
     try {
-      await Auth.forgotPasswordSubmit(email, code, newPassword);
+      await Auth.forgotPasswordSubmit(emailForgotPassword, code, newPassword);
       router.push('/#/login');
       setSubmitted(false);
       setForgotPassword(false);
@@ -142,18 +111,19 @@ const LoginPage: React.FC = (props) => {
   if (forgotPassword) {
     return (
       <Login {...props}>
-        <form onSubmit={handleSubmit} className={classes.form}>
+        <form className={classes.form} role='form'>
           <TextField
             label="Email"
+            placeholder="Email"
             type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            value={emailForgotPassword}
+            onChange={(event) => setEmailForgotPassword(event.target.value)}
             required
             fullWidth
             autoFocus
             className={classes.input}
           />
-          <Button type="submit" color="primary" variant="contained" className={classes.submitButton}>
+          <Button type="button" onClick={handleSubmitForgotPassword} color="primary" variant="contained" className={classes.submitButton}>
             Reset Password
           </Button>
         </form>
@@ -177,6 +147,7 @@ const LoginPage: React.FC = (props) => {
           {error && <Typography color="error">{error}</Typography>}
           <TextField
             label="Verification Code"
+            placeholder="Verification Code"
             type="text"
             fullWidth
             value={code}
@@ -189,6 +160,7 @@ const LoginPage: React.FC = (props) => {
               </Typography>
               <TextField
                 label="New Password"
+                placeholder="New Password"
                 type="password"
                 fullWidth
                 value={newPassword}
@@ -196,6 +168,7 @@ const LoginPage: React.FC = (props) => {
               />
               <TextField
                 label="Confirm New Password"
+                placeholder="Confirm New Password"
                 type="password"
                 fullWidth
                 value={confirmNewPassword}
@@ -225,7 +198,32 @@ const LoginPage: React.FC = (props) => {
 
   return (
     <Login {...props}>
-      <LoginForm />
+      <form onSubmit={handleSubmitLogin} className={classes.form}>
+        <TextField
+          label="Email"
+          placeholder="Email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          required
+          fullWidth
+          autoFocus
+          className={classes.input}
+        />
+        <TextField
+          label="Password"
+          placeholder="Password"
+          type="password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          required
+          fullWidth
+          className={classes.input}
+        />
+        <Button type="submit" color="primary" variant="contained" className={classes.submitButton}>
+          Login
+        </Button>
+        <Notification />
+      </form>
       <div className={classes.containerBtn}>
         <Button onClick={handleForgotPasswordClick}>Forgot Password</Button>
       </div>
