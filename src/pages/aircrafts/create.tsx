@@ -7,13 +7,13 @@ const aircraftTypes = [
   { id: 'turboprop', name: 'turboprop' },
   { id: 'jet', name: 'jet' },
   { id: 'helicopter', name: 'helicopter' },
-]
+];
 const statuses = [
   { id: 'available', name: 'available' },
   { id: 'unavailable', name: 'unavailable' },
-]
+];
 
-export const AircraftCreate: React.FC = (props) => (
+export const AircraftCreate: React.FC = props => (
   <Create {...props}>
     <SimpleForm>
       <SelectInput source="aircraftType" label="Aircraft Type" choices={aircraftTypes} />

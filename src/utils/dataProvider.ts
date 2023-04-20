@@ -1,5 +1,5 @@
-import { buildGqlQuery, DataProvider } from "ra-data-graphql-simple";
-import { ApolloClient, DocumentNode, gql } from "@apollo/client";
+import { buildGqlQuery, DataProvider } from 'ra-data-graphql-simple';
+import { ApolloClient, DocumentNode, gql } from '@apollo/client';
 
 const GET_AIRCRAFTS = gql`
   query AllAircrafts {
@@ -17,8 +17,22 @@ const GET_AIRCRAFTS = gql`
 `;
 
 const CREATE_AIRCRAFT = gql`
-  mutation CreateAircraft($aircraftType: String!, $model: String!, $eco: String, $status: String!, $maxPassengers: Int!) {
-    createAircraft(input: { aircraftType: $aircraftType, model: $model, eco: $eco, status: $status, maxPassengers: $maxPassengers }) {
+  mutation CreateAircraft(
+    $aircraftType: String!
+    $model: String!
+    $eco: String
+    $status: String!
+    $maxPassengers: Int!
+  ) {
+    createAircraft(
+      input: {
+        aircraftType: $aircraftType
+        model: $model
+        eco: $eco
+        status: $status
+        maxPassengers: $maxPassengers
+      }
+    ) {
       id
       aircraftType
       model
@@ -32,8 +46,24 @@ const CREATE_AIRCRAFT = gql`
 `;
 
 const UPDATE_AIRCRAFT = gql`
-  mutation UpdateAircraft($id: ID!, $aircraftType: String, $model: String, $eco: String, $status: String, $maxPassengers: Int) {
-    updateAircraft(input: { id: $id, aircraftType: $aircraftType, model: $model, eco: $eco, status: $status, maxPassengers: $maxPassengers }) {
+  mutation UpdateAircraft(
+    $id: ID!
+    $aircraftType: String
+    $model: String
+    $eco: String
+    $status: String
+    $maxPassengers: Int
+  ) {
+    updateAircraft(
+      input: {
+        id: $id
+        aircraftType: $aircraftType
+        model: $model
+        eco: $eco
+        status: $status
+        maxPassengers: $maxPassengers
+      }
+    ) {
       id
       aircraftType
       model
@@ -72,7 +102,7 @@ const GET_AIRCRAFT = gql`
 const customDataProvider = (client: ApolloClient<any>): DataProvider => {
   return {
     getList: async (resource, params) => {
-      if (resource === "aircrafts") {
+      if (resource === 'aircrafts') {
         const { data } = await client.query({ query: GET_AIRCRAFTS });
         return { data: data.aircrafts, total: data.aircrafts.length };
       } else {
@@ -85,8 +115,11 @@ const customDataProvider = (client: ApolloClient<any>): DataProvider => {
       }
     },
     create: async (resource, params) => {
-      if (resource === "aircrafts") {
-        const { data } = await client.mutate({ mutation: CREATE_AIRCRAFT, variables: params.data });
+      if (resource === 'aircrafts') {
+        const { data } = await client.mutate({
+          mutation: CREATE_AIRCRAFT,
+          variables: params.data,
+        });
         return { data: data.createAircraft };
       } else {
         const query = buildGqlQuery(resource, params, 'create');
@@ -97,8 +130,11 @@ const customDataProvider = (client: ApolloClient<any>): DataProvider => {
       }
     },
     update: async (resource, params) => {
-      if (resource === "aircrafts") {
-        const { data } = await client.mutate({ mutation: UPDATE_AIRCRAFT, variables: params.data });
+      if (resource === 'aircrafts') {
+        const { data } = await client.mutate({
+          mutation: UPDATE_AIRCRAFT,
+          variables: params.data,
+        });
         return { data: data.updateAircraft };
       } else {
         const query = buildGqlQuery(resource, params, 'update');
@@ -109,8 +145,11 @@ const customDataProvider = (client: ApolloClient<any>): DataProvider => {
       }
     },
     delete: async (resource, params) => {
-      if (resource === "aircrafts") {
-        const { data } = await client.mutate({ mutation: DELETE_AIRCRAFT, variables: { id: params.id } });
+      if (resource === 'aircrafts') {
+        const { data } = await client.mutate({
+          mutation: DELETE_AIRCRAFT,
+          variables: { id: params.id },
+        });
         return { data: data.deleteAircraft };
       } else {
         const query = buildGqlQuery(resource, params, 'delete');
@@ -121,8 +160,11 @@ const customDataProvider = (client: ApolloClient<any>): DataProvider => {
       }
     },
     deleteMany: async (resource, params) => {
-      if (resource === "aircrafts") {
-        const { data } = await client.mutate({ mutation: DELETE_AIRCRAFTS, variables: { ids: params.ids } });
+      if (resource === 'aircrafts') {
+        const { data } = await client.mutate({
+          mutation: DELETE_AIRCRAFTS,
+          variables: { ids: params.ids },
+        });
         return { data: data.deleteAircrafts.deletedIds };
       } else {
         // Implement deleteMany for other resources, if needed
@@ -130,8 +172,11 @@ const customDataProvider = (client: ApolloClient<any>): DataProvider => {
       }
     },
     getOne: async (resource, params) => {
-      if (resource === "aircrafts") {
-        const { data } = await client.query({ query: GET_AIRCRAFT, variables: { id: params.id } });
+      if (resource === 'aircrafts') {
+        const { data } = await client.query({
+          query: GET_AIRCRAFT,
+          variables: { id: params.id },
+        });
         return { data: data.aircraft };
       } else {
         const query = buildGqlQuery(resource, params, 'getOne');

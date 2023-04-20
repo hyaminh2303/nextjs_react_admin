@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/styles';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     justifyContent: 'center',
@@ -18,23 +18,23 @@ const useStyles = makeStyles((theme) => ({
   form: {
     display: 'flex',
     flexDirection: 'column',
-    marginTop: "10px",
-    padding: "10px",
+    marginTop: '10px',
+    padding: '10px',
   },
   input: {
-    marginBottom: "10px",
+    marginBottom: '10px',
   },
   submitButton: {
-    marginTop: "10px",
+    marginTop: '10px',
   },
   containerBtn: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }));
 
-const LoginPage: React.FC = (props) => {
+const LoginPage: React.FC = props => {
   const router = useRouter();
   const classes = useStyles();
   const notify = useNotify();
@@ -111,19 +111,25 @@ const LoginPage: React.FC = (props) => {
   if (forgotPassword) {
     return (
       <Login {...props}>
-        <form className={classes.form} role='form'>
+        <form className={classes.form} role="form">
           <TextField
             label="Email"
             placeholder="Email"
             type="email"
             value={emailForgotPassword}
-            onChange={(event) => setEmailForgotPassword(event.target.value)}
+            onChange={event => setEmailForgotPassword(event.target.value)}
             required
             fullWidth
             autoFocus
             className={classes.input}
           />
-          <Button type="button" onClick={handleSubmitForgotPassword} color="primary" variant="contained" className={classes.submitButton}>
+          <Button
+            type="button"
+            onClick={handleSubmitForgotPassword}
+            color="primary"
+            variant="contained"
+            className={classes.submitButton}
+          >
             Reset Password
           </Button>
         </form>
@@ -151,7 +157,7 @@ const LoginPage: React.FC = (props) => {
             type="text"
             fullWidth
             value={code}
-            onChange={(event) => setCode(event.target.value)}
+            onChange={event => setCode(event.target.value)}
           />
           {code && (
             <>
@@ -164,7 +170,7 @@ const LoginPage: React.FC = (props) => {
                 type="password"
                 fullWidth
                 value={newPassword}
-                onChange={(event) => setNewPassword(event.target.value)}
+                onChange={event => setNewPassword(event.target.value)}
               />
               <TextField
                 label="Confirm New Password"
@@ -172,7 +178,7 @@ const LoginPage: React.FC = (props) => {
                 type="password"
                 fullWidth
                 value={confirmNewPassword}
-                onChange={(event) => setConfirmNewPassword(event.target.value)}
+                onChange={event => setConfirmNewPassword(event.target.value)}
               />
               <Button
                 variant="contained"
@@ -203,7 +209,7 @@ const LoginPage: React.FC = (props) => {
           label="Email"
           placeholder="Email"
           value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          onChange={event => setEmail(event.target.value)}
           required
           fullWidth
           autoFocus
@@ -214,12 +220,17 @@ const LoginPage: React.FC = (props) => {
           placeholder="Password"
           type="password"
           value={password}
-          onChange={(event) => setPassword(event.target.value)}
+          onChange={event => setPassword(event.target.value)}
           required
           fullWidth
           className={classes.input}
         />
-        <Button type="submit" color="primary" variant="contained" className={classes.submitButton}>
+        <Button
+          type="submit"
+          color="primary"
+          variant="contained"
+          className={classes.submitButton}
+        >
           Login
         </Button>
         <Notification />

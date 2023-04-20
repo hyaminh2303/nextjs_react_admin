@@ -7,13 +7,13 @@ const aircraftTypes = [
   { id: 'turboprop', name: 'turboprop' },
   { id: 'jet', name: 'jet' },
   { id: 'helicopter', name: 'helicopter' },
-]
+];
 const statuses = [
   { id: 'available', name: 'available' },
   { id: 'unavailable', name: 'unavailable' },
-]
+];
 
-export const AircraftEdit: React.FC = (props) => (
+export const AircraftEdit: React.FC = props => (
   <Edit {...props}>
     <SimpleForm>
       <SelectInput source="aircraftType" label="Aircraft Type" choices={aircraftTypes} />
