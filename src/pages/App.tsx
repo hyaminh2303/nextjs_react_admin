@@ -5,13 +5,16 @@ import buildGraphQLProvider from "../utils/buildGraphQLProvider";
 import { AircraftCreate } from './aircrafts/create';
 import { AircraftEdit } from './aircrafts/edit';
 import { AircraftList } from './aircrafts/list';
+import { UserCreate } from './users/create';
+import { UserEdit } from './users/edit';
+import { UserList } from './users/list';
 import LoginPage from "./sessions/login";
 import authProvider from '../utils/authProvider';
 import '../utils/amplify-config';
 
 
 const client = new ApolloClient({
-  uri: "http://cloud.sazae-technology.com:3000/graphql",
+  uri: process.env.NEXT_PUBLIC_API_URL,
   cache: new InMemoryCache(),
 });
 
@@ -21,6 +24,7 @@ const App: React.FC = () => (
   <ApolloProvider client={client}>
     <Admin loginPage={LoginPage} dataProvider={dataProvider} authProvider={authProvider}>
       <Resource name="aircrafts" list={AircraftList} create={AircraftCreate} edit={AircraftEdit} />
+      <Resource name="users" list={UserList} create={UserCreate} edit={UserEdit} />
     </Admin>
   </ApolloProvider>
 );
