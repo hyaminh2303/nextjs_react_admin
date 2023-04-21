@@ -1,7 +1,7 @@
 import React from "react";
 import { Admin, Resource, ListGuesser } from "react-admin";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import buildGraphQLProvider from "../utils/dataProvider";
+import buildGraphQLProvider from "../utils/buildGraphQLProvider";
 import { AircraftCreate } from './aircrafts/create';
 import { AircraftEdit } from './aircrafts/edit';
 import { AircraftList } from './aircrafts/list';
