@@ -1,9 +1,8 @@
 // src/authProvider.ts
-import { AuthProvider } from 'react-admin';
 import { Auth } from 'aws-amplify';
 
-const authProvider: AuthProvider = {
-  login: async ({ email }) => {
+const authProvider: any = {
+  login: async ({ email }: any) => {
     // Store the user's email or JWT token in localStorage
     localStorage.setItem('userEmail', email);
     return Promise.resolve();
