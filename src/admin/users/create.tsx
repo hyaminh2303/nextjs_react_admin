@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Create, SimpleForm, TextInput, NumberInput, SelectInput } from 'react-admin';
+import { Create, SimpleForm, TextInput, SelectInput, PasswordInput } from 'react-admin';
 
 const userTypes = [
   { id: 'admin', name: 'Admin' },
-  { id: 'user', name: 'User' },
+  { id: 'member', name: 'Member' },
   { id: 'pilot', name: 'Pilot' },
 ]
 
@@ -12,7 +12,7 @@ const UserCreate: React.FC = (props) => (
     <SimpleForm>
       <SelectInput source="userType" label="User Type" choices={userTypes} />
       <TextInput source="email" label="Email" />
-      <TextInput source="password" label="Password" />
+      <PasswordInput source="password" label="Password" />
     </SimpleForm>
   </Create>
 );

@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_USERS = gql`
-  query AllUsers {
-    users {
+  query getUsers($first: Int, $skip: Int, $orderBy: String, $email: String, $userType: String, $createdAt: String) {
+  users(first: $first, skip: $skip, orderBy: $orderBy, email: $email, userType: $userType, createdAt: $createdAt) {
       id
       email
       userType

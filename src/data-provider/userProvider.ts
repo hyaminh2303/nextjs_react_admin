@@ -11,7 +11,19 @@ import {
 
 const userProvider = (client: any) => ({
   getList: async (params: any) => {
-    const { data } = await client.query({ query: GET_USERS });
+    const { page, perPage } = params.pagination;
+    const { field, order } = params.sort;
+
+    const variables = {
+      first: perPage,
+      skip: (page - 1) * perPage,
+      orderBy: `${field}_${order}`,
+      email: params.filter.email,
+      userType: params.filter.userType,
+      createdAt: params.filter.createdAt,
+    };
+
+    const { data } = await client.query({ query: GET_USERS, variables });
     return { data: data.users, total: data.users.length };
   },
   create: async (params: any) => {

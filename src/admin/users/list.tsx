@@ -1,13 +1,23 @@
 import * as React from 'react';
-import { List, Datagrid, TextField, NumberField, DateField, EmailField } from 'react-admin';
+import { List, Filter, Datagrid, TextField, NumberField, DateField, EmailField, TextInput, SelectInput, ReferenceField } from 'react-admin';
+
+const UsersFilter = (props: any) => (
+  <Filter {...props}>
+    <TextInput source="email" label="Search by email" alwaysOn/>
+    <SelectInput source="userType" label="User Type" choices={[
+      { id: 'admin', name: 'Admin' },
+      { id: 'member', name: 'Member' },
+      { id: 'pilot', name: 'Pilot' },
+    ]} />
+  </Filter>
+)
 
 const UserList: React.FC = (props) => (
-  <List {...props}>
+  <List {...props} filters={<UsersFilter />}>
     <Datagrid rowClick="edit">
       <NumberField source="id" label="ID" />
       <EmailField source="email" label="Email" />
       <TextField source="userType" label="User Type" />
-      <TextField source="roles" label="Roles" />
       <DateField source="createdAt" label="Created At" />
       <DateField source="updatedAt" label="Updated At" />
     </Datagrid>
