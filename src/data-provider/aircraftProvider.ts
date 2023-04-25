@@ -14,6 +14,10 @@ const aircraftProvider = (client: any) => ({
     const { data } = await client.query({ query: GET_AIRCRAFTS });
     return { data: data.aircrafts, total: data.aircrafts.length };
   },
+  getMany: async (params: any) => {
+    const { data } = await client.query({ query: GET_AIRCRAFTS, variables: { ids: params.ids } });
+    return { data: data.aircrafts };
+  },
   create: async (params: any) => {
     const { data } = await client.mutate({ mutation: CREATE_AIRCRAFT, variables: params.data });
     return { data: data.createAircraft };

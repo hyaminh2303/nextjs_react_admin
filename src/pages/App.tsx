@@ -11,6 +11,8 @@ import { UserList } from './users/list';
 import LoginPage from "./sessions/login";
 import authProvider from '../utils/authProvider';
 import '../utils/amplify-config';
+import UserIcon from "@mui/icons-material/Group";
+import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 
 
 const client = new ApolloClient({
@@ -23,8 +25,8 @@ const dataProvider = buildGraphQLProvider(client);
 const App: React.FC = () => (
   <ApolloProvider client={client}>
     <Admin loginPage={LoginPage} dataProvider={dataProvider} authProvider={authProvider}>
-      <Resource name="aircrafts" list={AircraftList} create={AircraftCreate} edit={AircraftEdit} />
-      <Resource name="users" list={UserList} create={UserCreate} edit={UserEdit} />
+      <Resource name="aircrafts" icon={AirplanemodeActiveIcon} list={AircraftList} create={AircraftCreate} edit={AircraftEdit} />
+      <Resource name="users" icon={UserIcon} list={UserList} create={UserCreate} edit={UserEdit} />
     </Admin>
   </ApolloProvider>
 );
