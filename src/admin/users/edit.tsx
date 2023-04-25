@@ -7,7 +7,7 @@ const userTypes = [
   { id: 'pilot', name: 'Pilot' },
 ]
 
-export const UserEdit: React.FC = (props) => (
+const UserEdit: React.FC = (props) => (
   <Edit {...props}>
     <SimpleForm>
       <SelectInput source="userType" label="User Type" choices={userTypes} />
@@ -15,3 +15,5 @@ export const UserEdit: React.FC = (props) => (
     </SimpleForm>
   </Edit>
 );
+
+export default UserEdit;

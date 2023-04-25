@@ -7,7 +7,7 @@ const userTypes = [
   { id: 'pilot', name: 'Pilot' },
 ]
 
-export const UserCreate: React.FC = (props) => (
+const UserCreate: React.FC = (props) => (
   <Create {...props}>
     <SimpleForm>
       <SelectInput source="userType" label="User Type" choices={userTypes} />
@@ -16,3 +16,5 @@ export const UserCreate: React.FC = (props) => (
     </SimpleForm>
   </Create>
 );
+
+export default UserCreate;

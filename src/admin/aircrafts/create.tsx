@@ -13,7 +13,7 @@ const statuses = [
   { id: 'unavailable', name: 'unavailable' },
 ]
 
-export const AircraftCreate: React.FC = (props) => (
+const AircraftCreate: React.FC = (props) => (
   <Create {...props}>
     <SimpleForm>
       <SelectInput source="aircraftType" label="Aircraft Type" choices={aircraftTypes} />
@@ -24,3 +24,5 @@ export const AircraftCreate: React.FC = (props) => (
     </SimpleForm>
   </Create>
 );
+
+export default AircraftCreate;
