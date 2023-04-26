@@ -15,11 +15,11 @@ const UsersFilter = (props: any) => (
 const UserList: React.FC = (props) => (
   <List {...props} filters={<UsersFilter />}>
     <Datagrid rowClick="edit">
-      <NumberField source="id" label="ID" />
-      <EmailField source="email" label="Email" />
-      <TextField source="userType" label="User Type" />
-      <DateField source="createdAt" label="Created At" />
-      <DateField source="updatedAt" label="Updated At" />
+      <NumberField source="id" label="ID" data-testid="id" />
+      <EmailField source="email" label="Email" data-testid="email" />
+      <TextField source="userType" label="User Type" data-testid="userType" />
+      <DateField source="createdAt" label="Created At" data-testid="createdAt" />
+      <DateField source="updatedAt" label="Updated At" data-testid="updatedAt" />
     </Datagrid>
   </List>
 );
