@@ -19,7 +19,8 @@ const aircraftProvider = (client: any) => ({
     return { data: data.aircrafts };
   },
   create: async (params: any) => {
-    const { data } = await client.mutate({ mutation: CREATE_AIRCRAFT, variables: params.data });
+    const { data } = await client.mutate({ mutation: CREATE_AIRCRAFT, variables: params.data, refetchQueries: [{ query: GET_AIRCRAFTS }] });
+    await client.query({ query: GET_AIRCRAFTS });
     return { data: data.createAircraft };
   },
   update: async (params: any) => {
@@ -31,8 +32,11 @@ const aircraftProvider = (client: any) => ({
     return { data: data.deleteAircraft.id };
   },
   deleteMany: async (params: any) => {
-    const { data } = await client.mutate({ mutation: DELETE_AIRCRAFTS, variables: { ids: params.ids } });
-    return { data: data.deleteAircrafts.deletedIds };
+    const { data } = await client.mutate({ mutation: DELETE_AIRCRAFTS, variables: { ids: params.ids }, refetchQueries: [{ query: GET_AIRCRAFTS, updateCache: true }] });
+    const existingAircrafts = await client.query({ query: GET_AIRCRAFTS });
+    const updatedAircrafts = existingAircrafts.data.aircrafts;
+
+  return { data: updatedAircrafts };
   },
   getOne: async (params: any) => {
     const { data } = await client.query({ query: GET_AIRCRAFT, variables: { id: params.id } });
