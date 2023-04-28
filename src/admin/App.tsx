@@ -17,6 +17,11 @@ import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 const client = new ApolloClient({
   uri: process.env.NEXT_PUBLIC_API_URL,
   cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'cache-and-network',
+    },
+  },
 });
 
 const dataProvider = buildGraphQLProvider(client);

@@ -27,7 +27,8 @@ const userProvider = (client: any) => ({
     return { data: data.users, total: data.users.length };
   },
   create: async (params: any) => {
-    const { data } = await client.mutate({ mutation: CREATE_USER, variables: params.data });
+    const { data } = await client.mutate({ mutation: CREATE_USER, variables: {...params.data}, refetchQueries: [{ query: GET_USERS }] });
+    await client.query({ query: GET_USERS });
     return { data: data.createUser };
   },
   update: async (params: any) => {
@@ -35,12 +36,23 @@ const userProvider = (client: any) => ({
     return { data: data.updateUser };
   },
   delete: async (params: any) => {
-    const { data } = await client.mutate({ mutation: DELETE_USER, variables: { id: params.id } });
+    const { data } = await client.mutate({
+      mutation: DELETE_USER,
+      variables: { id: params.id },
+      refetchQueries: [{ query: GET_USERS }],
+    });
+
     return { data: data.deleteUser.id };
   },
   deleteMany: async (params: any) => {
-    const { data } = await client.mutate({ mutation: DELETE_USERS, variables: { ids: params.ids } });
-    return { data: data.deleteUsers.deletedIds };
+    const { data } = await client.mutate({
+      mutation: DELETE_USERS,
+      variables: { ids: params.ids },
+      refetchQueries: [{ query: GET_USERS }],
+    });
+
+    const deletedIds = params.ids;
+    return { data: deletedIds };
   },
   getOne: async (params: any) => {
     const { data } = await client.query({ query: GET_USER, variables: { id: params.id } });
