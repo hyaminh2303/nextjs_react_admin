@@ -44,7 +44,8 @@ const buildGraphQLProvider = (client: ApolloClient<any>): any => {
     },
     deleteMany: async (resource: any, params: any) => {
       const provider = getProvider(resource, client);
-      const data = await provider.deleteMany(params);
+      await provider.deleteMany(params);
+      const data = await provider.getList(params);
       return data;
     },
     getOne: async (resource: any, params: any) => {

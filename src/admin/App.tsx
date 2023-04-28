@@ -19,9 +19,14 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   defaultOptions: {
     watchQuery: {
-      fetchPolicy: 'cache-and-network',
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'ignore',
     },
-  },
+    query: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'all',
+    },
+  }
 });
 
 const dataProvider = buildGraphQLProvider(client);
