@@ -120,6 +120,7 @@ const LoginPage: React.FC = (props) => {
             onChange={(event) => setEmailForgotPassword(event.target.value)}
             required
             fullWidth
+            id='email'
             autoFocus
             className={classes.input}
           />
@@ -150,6 +151,7 @@ const LoginPage: React.FC = (props) => {
             placeholder="Verification Code"
             type="text"
             fullWidth
+            id='code'
             value={code}
             onChange={(event) => setCode(event.target.value)}
           />
@@ -163,6 +165,7 @@ const LoginPage: React.FC = (props) => {
                 placeholder="New Password"
                 type="password"
                 fullWidth
+                id='new_password'
                 value={newPassword}
                 onChange={(event) => setNewPassword(event.target.value)}
               />
@@ -171,6 +174,7 @@ const LoginPage: React.FC = (props) => {
                 placeholder="Confirm New Password"
                 type="password"
                 fullWidth
+                id='confirm_new_password'
                 value={confirmNewPassword}
                 onChange={(event) => setConfirmNewPassword(event.target.value)}
               />
@@ -206,6 +210,7 @@ const LoginPage: React.FC = (props) => {
           onChange={(event) => setEmail(event.target.value)}
           required
           fullWidth
+          id='email'
           autoFocus
           className={classes.input}
         />
@@ -217,6 +222,7 @@ const LoginPage: React.FC = (props) => {
           onChange={(event) => setPassword(event.target.value)}
           required
           fullWidth
+          id='password'
           className={classes.input}
         />
         <Button type="submit" color="primary" variant="contained" className={classes.submitButton}>
