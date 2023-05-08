@@ -1,5 +1,5 @@
 import React from "react";
-import { Admin, Resource } from "react-admin";
+import { Admin, Resource, CustomRoutes, Edit } from "react-admin";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import buildGraphQLProvider from "../utils/buildGraphQLProvider";
 import AircraftCreate from './aircrafts/create';
@@ -13,6 +13,9 @@ import authProvider from '../utils/authProvider';
 import '../utils/amplify-config';
 import UserIcon from "@mui/icons-material/Group";
 import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
+import CustomLayout from '../components/CustomLayout';
+import SettingsForm from './settings/settings-form';
+import { Route } from 'react-router-dom';
 
 const client = new ApolloClient({
   uri: process.env.NEXT_PUBLIC_API_URL,
@@ -33,9 +36,17 @@ const dataProvider = buildGraphQLProvider(client);
 
 const App: React.FC = () => (
   <ApolloProvider client={client}>
-    <Admin loginPage={LoginPage} dataProvider={dataProvider} authProvider={authProvider}>
-      <Resource name="aircrafts" icon={AirplanemodeActiveIcon} list={AircraftList} create={AircraftCreate} edit={AircraftEdit} />
-      <Resource name="users" icon={UserIcon} list={UserList} create={UserCreate} edit={UserEdit} />
+    <Admin
+      loginPage={LoginPage}
+      dataProvider={dataProvider}
+      authProvider={authProvider}
+      layout={CustomLayout}
+    >
+      <Resource name="Aircrafts" icon={AirplanemodeActiveIcon} list={AircraftList} create={AircraftCreate} edit={AircraftEdit} />
+      <Resource name="Users" icon={UserIcon} list={UserList} create={UserCreate} edit={UserEdit} />
+      <CustomRoutes>
+        <Route path="/settings" element={<SettingsForm />} />
+      </CustomRoutes>
     </Admin>
   </ApolloProvider>
 );

@@ -2,11 +2,13 @@ import { ApolloClient } from "@apollo/client";
 import {
   aircraftProvider,
   userProvider,
+  settingProvider
 } from "../data-provider";
 
 const resourceProviders: { [key: string]: (client: ApolloClient<any>) => any } = {
-  aircrafts: aircraftProvider,
-  users: userProvider,
+  Aircrafts: aircraftProvider,
+  Users: userProvider,
+  Settings: settingProvider
 };
 
 const getProvider = (resource: string, client: ApolloClient<any>) => {
@@ -51,6 +53,11 @@ const buildGraphQLProvider = (client: ApolloClient<any>): any => {
     getOne: async (resource: any, params: any) => {
       const provider = getProvider(resource, client);
       const data = await provider.getOne(params);
+      return data;
+    },
+    getSettings: async (resource: any) => {
+      const provider = getProvider(resource, client);
+      const data = await provider.getSettings();
       return data;
     },
   };
