@@ -67,7 +67,7 @@ const SettingsForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Box sx={{ mt: 2 }}>
+      <Box sx={{ mt: 2, mb: 3 }}>
         <Typography variant="h6" component="h2">
           Membership Type
         </Typography>
@@ -79,7 +79,7 @@ const SettingsForm: React.FC = () => {
               <TextField
                 {...register('basicMembershipPrice', { required: true })}
                 sx={{ mr: 2 }}
-                size="small"
+                size="medium"
                 type="number"
                 label="Basic"
                 id="basicMembershipPrice"
@@ -96,7 +96,7 @@ const SettingsForm: React.FC = () => {
               <TextField
                 {...register('goldMembershipPrice', { required: true })}
                 sx={{ mr: 2 }}
-                size="small"
+                size="medium"
                 type="number"
                 label="Gold"
                 fullWidth
@@ -112,7 +112,7 @@ const SettingsForm: React.FC = () => {
               <TextField
                 sx={{ mr: 2 }}
                 {...register('platinumMembershipPrice', { required: true })}
-                size="small"
+                size="medium"
                 type="number"
                 label="Platinum"
                 fullWidth
@@ -124,9 +124,6 @@ const SettingsForm: React.FC = () => {
       </Box>
 
       <Box>
-        <Typography variant="h6" component="h2">
-          Penalty Percentage
-        </Typography>
         <Controller
           name="penaltyPercentage"
           control={control}
@@ -134,7 +131,7 @@ const SettingsForm: React.FC = () => {
             <TextField
               sx={{ mr: 2, width: '50%' }}
               {...register('penaltyPercentage', { required: true })}
-              size="small"
+              size="medium"
               type="number"
               label="Penalty Percentage"
               fullWidth
@@ -145,9 +142,6 @@ const SettingsForm: React.FC = () => {
       </Box>
 
       <Box>
-        <Typography variant="h6" component="h2">
-          Discount for empty legs
-        </Typography>
         <Controller
           name="discountForEmptyLegs"
           control={control}
@@ -155,7 +149,7 @@ const SettingsForm: React.FC = () => {
             <TextField
               sx={{ mr: 2, width: '50%' }}
               {...register('discountForEmptyLegs', { required: true })}
-              size="small"
+              size="medium"
               type="number"
               label="Discount for empty legs"
               fullWidth
@@ -166,9 +160,6 @@ const SettingsForm: React.FC = () => {
       </Box>
 
       <Box>
-        <Typography variant="h6" component="h2">
-          Margins for additional hours
-        </Typography>
         <Controller
           name="marginForAdditionalHours"
           control={control}
@@ -176,7 +167,7 @@ const SettingsForm: React.FC = () => {
             <TextField
               sx={{ mr: 2, width: '50%' }}
               {...register('marginForAdditionalHours', { required: true })}
-              size="small"
+              size="medium"
               type="number"
               label="Margin for additional hours"
               fullWidth
@@ -187,9 +178,6 @@ const SettingsForm: React.FC = () => {
       </Box>
 
       <Box>
-        <Typography variant="h6" component="h2">
-          Set the timeout for reservations
-        </Typography>
         <Controller
           name="reservationTimeout"
           control={control}
@@ -197,7 +185,7 @@ const SettingsForm: React.FC = () => {
             <TextField
               sx={{ mr: 2, width: '50%' }}
               {...register('reservationTimeout', { required: true })}
-              size="small"
+              size="medium"
               type="number"
               label="Set the timeout for reservations"
               fullWidth
@@ -208,9 +196,6 @@ const SettingsForm: React.FC = () => {
       </Box>
 
       <Box>
-        <Typography variant="h6" component="h2">
-          Helicopter long flight punishment
-        </Typography>
         <Controller
           name="helicopterLongFlightPunishment"
           control={control}
@@ -218,7 +203,7 @@ const SettingsForm: React.FC = () => {
             <TextField
               sx={{ mr: 2, width: '50%' }}
               {...register('helicopterLongFlightPunishment', { required: true })}
-              size="small"
+              size="medium"
               type="number"
               label="Helicopter long flight punishment"
               fullWidth
@@ -229,9 +214,6 @@ const SettingsForm: React.FC = () => {
       </Box>
 
       <Box>
-        <Typography variant="h6" component="h2">
-          Air plane short flight punishment
-        </Typography>
         <Controller
           name="airplaneShortFlightPunishment"
           control={control}
@@ -239,7 +221,7 @@ const SettingsForm: React.FC = () => {
             <TextField
               sx={{ mr: 2, width: '50%' }}
               {...register('airplaneShortFlightPunishment', { required: true })}
-              size="small"
+              size="medium"
               type="number"
               label="Air plane short flight punishment"
               fullWidth
@@ -250,9 +232,6 @@ const SettingsForm: React.FC = () => {
       </Box>
 
       <Box>
-        <Typography variant="h6" component="h2">
-          Set the threshold for long or short flights
-        </Typography>
         <Controller
           name="longShortFlightThreshold"
           control={control}
@@ -260,7 +239,7 @@ const SettingsForm: React.FC = () => {
             <TextField
               sx={{ mr: 2, width: '50%' }}
               {...register('longShortFlightThreshold', { required: true })}
-              size="small"
+              size="medium"
               type="number"
               label="Set the threshold for long or short flights"
               fullWidth
