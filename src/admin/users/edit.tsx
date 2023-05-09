@@ -10,7 +10,7 @@ const userTypes = [
 const UserEdit: React.FC = (props) => (
   <Edit {...props}>
     <SimpleForm>
-      <SelectInput source="userType" label="User Type" choices={userTypes} />
+      <SelectInput source="userType" label="User Type" choices={userTypes} id='userType' />
       <TextInput source="email" label="Email" />
       <PasswordInput source="password" label="Password" />
     </SimpleForm>

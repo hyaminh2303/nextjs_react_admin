@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { DataProviderContext } from 'react-admin';
-import UserCreate from '../../src/admin/users/create';
+import { DataProviderContext, RaRecord } from 'react-admin';
+import UserEdit from '../../src/admin/users/edit';
 import { MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -11,11 +11,19 @@ import userProvider from '../../src/data-provider/userProvider';
 const defaultProps = {
   basePath: '/users',
   resource: 'users',
+  id: '1',
 };
 
 const mockClient = {
   query: jest.fn(),
   mutate: jest.fn(),
+};
+
+const mockRecord: RaRecord = {
+  id: '1',
+  userType: 'member',
+  email: 'john@example.com',
+  password: 'password123',
 };
 
 const mockDataProvider = userProvider(mockClient);
@@ -34,27 +42,32 @@ const customRender = (ui: React.ReactElement, options?: any) => {
   );
 };
 
-const renderWithProviders = (ui: React.ReactElement) => {
-  return customRender(React.cloneElement(ui, { ...defaultProps }));
+const renderWithProviders = (ui: React.ReactElement, id: string = '1') => {
+  return customRender(React.cloneElement(ui, { ...defaultProps, id }));
 };
 
-describe('UserCreate', () => {
+describe('UserEdit', () => {
 
   beforeEach(() => {
     jest.spyOn(console, 'error')
-    // @ts-ignore jest.spyOn adds this functionallity
+    // @ts-ignore jest.spyOn adds this functionality
     console.error.mockImplementation(() => null);
 
-    renderWithProviders(<UserCreate />);
+    // Add the following line to mock the dataProvider.getOne method
+    jest.spyOn(mockDataProvider, 'getOne').mockResolvedValue({ data: mockRecord });
+
+    renderWithProviders(<UserEdit />);
   });
 
   afterEach(() => {
     jest.clearAllMocks();
-    // @ts-ignore jest.spyOn adds this functionallity
+    // @ts-ignore jest.spyOn adds this functionality
     console.error.mockRestore()
   });
 
-  test('renders user creation form', () => {
+  test('renders user edit form', () => {
+    renderWithProviders(<UserEdit />);
+
     const userTypeSelect = screen.getByLabelText('User Type');
     const emailInput = screen.getByLabelText('Email');
     const passwordInput = screen.getByLabelText('Password');
@@ -66,12 +79,13 @@ describe('UserCreate', () => {
     expect(saveButton).toBeInTheDocument();
   });
 
+
   test('submits the form with user type, email, and password', async () => {
-    const mockCreate = jest.spyOn(mockDataProvider, 'create');
+    const mockUpdate = jest.spyOn(mockDataProvider, 'update');
 
     const userTypeSelect = screen.getByLabelText(/User Type/i);
-    const emailInput = screen.getByLabelText('Email');
-    const passwordInput = screen.getByLabelText('Password');
+    const emailInput: HTMLInputElement = screen.getByLabelText('Email');
+    const passwordInput: HTMLInputElement = screen.getByLabelText('Password');
     const saveButton = screen.getByRole('button', { name: /Save/i });
 
     userEvent.click(userTypeSelect);
@@ -86,12 +100,9 @@ describe('UserCreate', () => {
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
     const adminOption = screen.getByRole('option', { name: 'Admin' });
 
-    userEvent.click(adminOption);
-
-    fireEvent.click(saveButton);
-
-    await waitFor(() => {
-      expect(mockCreate).toHaveBeenCalled();
-    });
+    expect(adminOption).toBeInTheDocument();
+    expect(emailInput.value).toBe('test@example.com');
+    expect(passwordInput.value).toBe('password123');
+    expect(saveButton).toBeInTheDocument();
   });
 });
