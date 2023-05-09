@@ -42,8 +42,8 @@ const App: React.FC = () => (
       authProvider={authProvider}
       layout={CustomLayout}
     >
-      <Resource name="Aircrafts" icon={AirplanemodeActiveIcon} list={AircraftList} create={AircraftCreate} edit={AircraftEdit} />
-      <Resource name="Users" icon={UserIcon} list={UserList} create={UserCreate} edit={UserEdit} />
+      <Resource name="aircrafts" icon={AirplanemodeActiveIcon} list={AircraftList} create={AircraftCreate} edit={AircraftEdit} />
+      <Resource name="users" icon={UserIcon} list={UserList} create={UserCreate} edit={UserEdit} />
       <CustomRoutes>
         <Route path="/settings" element={<SettingsForm />} />
       </CustomRoutes>

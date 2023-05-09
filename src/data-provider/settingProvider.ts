@@ -5,14 +5,15 @@ import {
 import {GET_SETTINGS} from './graphql/settings/queries';
 
 const settingProvider = (client: any) => ({
-  update: async (params: any) => {
-    const { data } = await client.mutate({ mutation: UPDATE_SETTINGS, variables: params.data });
-    return { data: data.updateSettings };
+  updateSettings: async (input: any) => {
+    const { data } = await client.mutate({
+      mutation: UPDATE_SETTINGS,
+      variables: { input }
+    });
+    return { data: data.updatePlatformConfiguration.platformConfiguration };
   },
   getSettings: async () => {
     const { data } = await client.query({ query: GET_SETTINGS });
-    console.log(data);
-
     return { data: data.platformConfiguration };
   },
 });

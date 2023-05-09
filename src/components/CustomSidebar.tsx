@@ -13,6 +13,7 @@ const CustomSidebar = () => {
           to={`/${name}`}
           primaryText={resources[name].options && resources[name].options.label || name}
           leftIcon={React.createElement(resources[name].icon)}
+          style={{textTransform: 'capitalize'}}
         />
       ))}
       <Menu.Item to="/settings" primaryText="Settings" leftIcon={<SettingsIcon />} />
