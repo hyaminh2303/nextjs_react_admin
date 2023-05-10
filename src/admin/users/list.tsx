@@ -5,9 +5,12 @@ const UsersFilter = (props: any) => (
   <Filter {...props}>
     <TextInput source="email" label="Search by email" alwaysOn/>
     <SelectInput source="userType" label="User Type" choices={[
-      { id: 'admin', name: 'Admin' },
+      { id: 'administrator', name: 'Administrator' },
       { id: 'member', name: 'Member' },
       { id: 'pilot', name: 'Pilot' },
+      { id: 'coordinator', name: 'Coordinator' },
+      { id: 'service_provider', name: 'Service Provider' },
+      { id: 'aircrafts_provider', name: 'Aircrafts Provider' },
     ]} />
   </Filter>
 )

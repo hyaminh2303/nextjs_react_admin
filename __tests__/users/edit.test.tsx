@@ -91,16 +91,16 @@ describe('UserEdit', () => {
     userEvent.click(userTypeSelect);
 
     await waitFor(() => {
-      expect(screen.getByRole('option', { name: 'Admin' })).toBeInTheDocument();
+      expect(screen.getByRole('option', { name: 'Administrator' })).toBeInTheDocument();
       expect(screen.getByRole('option', { name: 'Member' })).toBeInTheDocument();
       expect(screen.getByRole('option', { name: 'Pilot' })).toBeInTheDocument();
     });
 
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
     fireEvent.change(passwordInput, { target: { value: 'password123' } });
-    const adminOption = screen.getByRole('option', { name: 'Admin' });
+    const administratorOption = screen.getByRole('option', { name: 'Administrator' });
 
-    expect(adminOption).toBeInTheDocument();
+    expect(administratorOption).toBeInTheDocument();
     expect(emailInput.value).toBe('test@example.com');
     expect(passwordInput.value).toBe('password123');
     expect(saveButton).toBeInTheDocument();

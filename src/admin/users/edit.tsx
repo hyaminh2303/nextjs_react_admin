@@ -2,9 +2,12 @@ import * as React from 'react';
 import { Edit, SimpleForm, TextInput, NumberInput, SelectInput, PasswordInput } from 'react-admin';
 
 const userTypes = [
-  { id: 'admin', name: 'Admin' },
+  { id: 'administrator', name: 'Administrator' },
   { id: 'member', name: 'Member' },
   { id: 'pilot', name: 'Pilot' },
+  { id: 'coordinator', name: 'Coordinator' },
+  { id: 'service_provider', name: 'Service Provider' },
+  { id: 'aircrafts_provider', name: 'Aircrafts Provider' },
 ]
 
 const UserEdit: React.FC = (props) => (

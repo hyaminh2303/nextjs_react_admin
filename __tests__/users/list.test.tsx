@@ -21,7 +21,7 @@ const mockDataProvider = {
   ...userProvider(mockClient),
   getList: jest.fn(() => Promise.resolve({
     data: [
-      { id: 1, email: 'admin@example.com', userType: 'admin', createdAt: '2023-01-01', updatedAt: '2023-01-01' },
+      { id: 1, email: 'administrator@example.com', userType: 'administrator', createdAt: '2023-01-01', updatedAt: '2023-01-01' },
       { id: 2, email: 'member@example.com', userType: 'member', createdAt: '2023-01-02', updatedAt: '2023-01-02' },
     ],
     total: 2,
@@ -63,7 +63,7 @@ describe('UserList', () => {
 
   test('renders a list of users', async () => {
     await waitFor(() => {
-      expect(screen.getByText('admin@example.com')).toBeInTheDocument();
+      expect(screen.getByText('administrator@example.com')).toBeInTheDocument();
       expect(screen.getByText('member@example.com')).toBeInTheDocument();
     });
 
@@ -74,7 +74,7 @@ describe('UserList', () => {
     const updatedAtFields = screen.getAllByTestId('updatedAt');
 
     expect(idFields[0]).toHaveTextContent('1');
-    expect(emailFields[0]).toHaveTextContent('admin@example.com');
+    expect(emailFields[0]).toHaveTextContent('administrator@example.com');
     expect(userTypeFields[0]).toHaveTextContent('admin');
     expect(createdAtFields[0]).toHaveTextContent('1/1/2023');
     expect(updatedAtFields[0]).toHaveTextContent('1/1/2023');
