@@ -13,7 +13,7 @@ const statuses = [
   { id: 'unavailable', name: 'unavailable' },
 ]
 
-export const AircraftEdit: React.FC = (props) => (
+const AircraftEdit: React.FC = (props) => (
   <Edit {...props}>
     <SimpleForm>
       <SelectInput source="aircraftType" label="Aircraft Type" choices={aircraftTypes} />
@@ -24,3 +24,5 @@ export const AircraftEdit: React.FC = (props) => (
     </SimpleForm>
   </Edit>
 );
+
+export default AircraftEdit;

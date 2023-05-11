@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import LoginPage from '../../src/pages/sessions/login';
+import LoginPage from '../../src/admin/sessions/login';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { MemoryRouter } from 'react-router-dom';
 import { useLogin } from 'react-admin';
@@ -16,6 +16,11 @@ jest.mock('aws-amplify', () => ({
     signIn: jest.fn(),
     forgotPassword: jest.fn(),
     forgotPasswordSubmit: jest.fn(),
+    currentAuthenticatedUser: jest.fn().mockResolvedValue({
+      attributes: {
+        'custom:user_type': 'administrator',
+      },
+    }),
   },
 }));
 

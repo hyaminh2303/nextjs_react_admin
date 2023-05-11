@@ -6,6 +6,7 @@ import { TextField, Button, Typography } from '@mui/material';
 import { makeStyles } from '@material-ui/styles';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
+import { availableRoles } from '../../../constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,13 +63,32 @@ const LoginPage: React.FC = (props) => {
     }
   };
 
+  const getUserRole = async () => {
+    try {
+        const cognitoUser = await Auth.currentAuthenticatedUser({bypassCache: true});
+        const userAttributes = cognitoUser.attributes;
+        const userRole = userAttributes['custom:user_type'];
+
+        return userRole;
+    } catch (error) {
+        console.error('Error fetching user role', error);
+        throw error;
+    }
+  };
+
   const handleSubmitLogin = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
       await Auth.signIn(email, password);
+      const userRole = await getUserRole();
+
+      if (!availableRoles.includes(userRole)) {
+        throw new Error('Only admins can log in');
+      }
+
       login({ email });
-    } catch (error) {
-      notify('Invalid email or password');
+    } catch (error: any) {
+      notify(error.message);
     }
   };
 
@@ -120,6 +140,7 @@ const LoginPage: React.FC = (props) => {
             onChange={(event) => setEmailForgotPassword(event.target.value)}
             required
             fullWidth
+            id='email'
             autoFocus
             className={classes.input}
           />
@@ -150,6 +171,7 @@ const LoginPage: React.FC = (props) => {
             placeholder="Verification Code"
             type="text"
             fullWidth
+            id='code'
             value={code}
             onChange={(event) => setCode(event.target.value)}
           />
@@ -163,6 +185,7 @@ const LoginPage: React.FC = (props) => {
                 placeholder="New Password"
                 type="password"
                 fullWidth
+                id='new_password'
                 value={newPassword}
                 onChange={(event) => setNewPassword(event.target.value)}
               />
@@ -171,6 +194,7 @@ const LoginPage: React.FC = (props) => {
                 placeholder="Confirm New Password"
                 type="password"
                 fullWidth
+                id='confirm_new_password'
                 value={confirmNewPassword}
                 onChange={(event) => setConfirmNewPassword(event.target.value)}
               />
@@ -206,6 +230,7 @@ const LoginPage: React.FC = (props) => {
           onChange={(event) => setEmail(event.target.value)}
           required
           fullWidth
+          id='email'
           autoFocus
           className={classes.input}
         />
@@ -217,6 +242,7 @@ const LoginPage: React.FC = (props) => {
           onChange={(event) => setPassword(event.target.value)}
           required
           fullWidth
+          id='password'
           className={classes.input}
         />
         <Button type="submit" color="primary" variant="contained" className={classes.submitButton}>

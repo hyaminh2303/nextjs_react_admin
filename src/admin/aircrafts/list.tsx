@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { List, Datagrid, TextField, NumberField, DateField } from 'react-admin';
 
-export const AircraftList: React.FC = (props) => (
+const AircraftList: React.FC = (props) => (
   <List {...props}>
     <Datagrid rowClick="edit">
       <NumberField source="id" label="ID" />
@@ -15,3 +15,5 @@ export const AircraftList: React.FC = (props) => (
     </Datagrid>
   </List>
 );
+
+export default AircraftList;
