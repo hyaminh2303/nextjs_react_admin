@@ -16,6 +16,11 @@ jest.mock('aws-amplify', () => ({
     signIn: jest.fn(),
     forgotPassword: jest.fn(),
     forgotPasswordSubmit: jest.fn(),
+    currentAuthenticatedUser: jest.fn().mockResolvedValue({
+      attributes: {
+        'custom:user_type': 'administrator',
+      },
+    }),
   },
 }));
 
