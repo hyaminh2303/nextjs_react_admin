@@ -6,6 +6,7 @@ export const GET_USERS = gql`
       id
       email
       userType
+      userRoles
       createdAt
       updatedAt
     }
@@ -18,6 +19,7 @@ export const GET_USER = gql`
       id
       email
       userType
+      userRoles
       createdAt
       updatedAt
     }

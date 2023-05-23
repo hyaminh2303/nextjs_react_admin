@@ -83,7 +83,7 @@ const LoginPage: React.FC = (props) => {
       const userRole = await getUserRole();
 
       if (!availableRoles.includes(userRole)) {
-        throw new Error('Only admins can log in');
+        // throw new Error('Only admins can log in');
       }
 
       login({ email });

@@ -56,6 +56,7 @@ const userProvider = (client: any) => ({
   },
   getOne: async (params: any) => {
     const { data } = await client.query({ query: GET_USER, variables: { id: params.id } });
+    console.log(data)
     return { data: { ...data.user } };
   },
 });
