@@ -2,11 +2,13 @@ import { ApolloClient } from "@apollo/client";
 import {
   aircraftProvider,
   userProvider,
+  pilotProvider
 } from "../data-provider";
 
 const resourceProviders: { [key: string]: (client: ApolloClient<any>) => any } = {
   aircrafts: aircraftProvider,
   users: userProvider,
+  pilots: pilotProvider
 };
 
 const getProvider = (resource: string, client: ApolloClient<any>) => {
