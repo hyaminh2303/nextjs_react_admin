@@ -12,20 +12,20 @@ import {
 const aircraftProvider = (client: any) => ({
   getList: async (params: any) => {
     const { data } = await client.query({ query: GET_AIRCRAFTS });
-    return { data: data.aircrafts, total: data.aircrafts.length };
+    return { data: data.adminAircrafts, total: data.adminAircrafts.length };
   },
   getMany: async (params: any) => {
     const { data } = await client.query({ query: GET_AIRCRAFTS, variables: { ids: params.ids } });
-    return { data: data.aircrafts };
+    return { data: data.adminAircrafts };
   },
   create: async (params: any) => {
     const { data } = await client.mutate({ mutation: CREATE_AIRCRAFT, variables: params.data, refetchQueries: [{ query: GET_AIRCRAFTS }] });
     await client.query({ query: GET_AIRCRAFTS });
-    return { data: data.createAircraft };
+    return { data: data.adminCreateAircraft };
   },
   update: async (params: any) => {
     const { data } = await client.mutate({ mutation: UPDATE_AIRCRAFT, variables: params.data });
-    return { data: data.updateAircraft };
+    return { data: data.adminUpdateAircraft };
   },
   delete: async (params: any) => {
     const { data } = await client.mutate({
@@ -34,7 +34,7 @@ const aircraftProvider = (client: any) => ({
       refetchQueries: [{ query: GET_AIRCRAFTS }],
     });
 
-    return { data: data.deleteAircraft.id };
+    return { data: data.adminDeleteAircraft.id };
   },
   deleteMany: async (params: any) => {
     const { data } = await client.mutate({
@@ -48,7 +48,7 @@ const aircraftProvider = (client: any) => ({
   },
   getOne: async (params: any) => {
     const { data } = await client.query({ query: GET_AIRCRAFT, variables: { id: params.id } });
-    return { data: data.aircraft };
+    return { data: data.adminAircraft };
   },
 });
 

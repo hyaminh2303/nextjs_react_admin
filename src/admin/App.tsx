@@ -25,8 +25,7 @@ const httpLink = createHttpLink({
 
 const authLink = setContext(async (_, { headers }) => {
   const session = await Auth.currentSession();
-  const token = session.getIdToken().getJwtToken();
-
+  const token = session.getAccessToken().getJwtToken();
   return {
     headers: {
       ...headers,

@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const GET_AIRCRAFTS = gql`
   query AllAircrafts {
-    aircrafts {
+    adminAircrafts {
       id
       aircraftType
       model
@@ -17,7 +17,7 @@ export const GET_AIRCRAFTS = gql`
 
 export const GET_AIRCRAFT = gql`
   query GetAircraft($id: ID!) {
-    aircraft(id: $id) {
+    adminAircraft(id: $id) {
       id
       aircraftType
       model
