@@ -1,6 +1,10 @@
 import React from "react";
 import { Admin, Resource } from "react-admin";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@apollo/client";
+
+import { Auth } from 'aws-amplify';
+import { setContext } from '@apollo/client/link/context';
+
 import buildGraphQLProvider from "../utils/buildGraphQLProvider";
 import AircraftCreate from './aircrafts/create';
 import AircraftEdit from './aircrafts/edit';
@@ -14,8 +18,24 @@ import '../utils/amplify-config';
 import UserIcon from "@mui/icons-material/Group";
 import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 
-const client = new ApolloClient({
+
+const httpLink = createHttpLink({
   uri: process.env.NEXT_PUBLIC_API_URL,
+});
+
+const authLink = setContext(async (_, { headers }) => {
+  const session = await Auth.currentSession();
+  const token = session.getAccessToken().getJwtToken();
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    }
+  }
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
   defaultOptions: {
     watchQuery: {

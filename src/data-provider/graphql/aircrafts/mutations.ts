@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const CREATE_AIRCRAFT = gql`
   mutation CreateAircraft($aircraftType: String!, $model: String!, $eco: String, $status: String!, $maxPassengers: Int!) {
-    createAircraft(input: { aircraftType: $aircraftType, model: $model, eco: $eco, status: $status, maxPassengers: $maxPassengers }) {
+    adminCreateAircraft(input: { aircraftType: $aircraftType, model: $model, eco: $eco, status: $status, maxPassengers: $maxPassengers }) {
       id
       aircraftType
       model
@@ -17,7 +17,7 @@ export const CREATE_AIRCRAFT = gql`
 
 export const UPDATE_AIRCRAFT = gql`
   mutation UpdateAircraft($id: ID!, $aircraftType: String, $model: String, $eco: String, $status: String, $maxPassengers: Int) {
-    updateAircraft(input: { id: $id, aircraftType: $aircraftType, model: $model, eco: $eco, status: $status, maxPassengers: $maxPassengers }) {
+    adminUpdateAircraft(input: { id: $id, aircraftType: $aircraftType, model: $model, eco: $eco, status: $status, maxPassengers: $maxPassengers }) {
       id
       aircraftType
       model
@@ -32,7 +32,7 @@ export const UPDATE_AIRCRAFT = gql`
 
 export const DELETE_AIRCRAFT = gql`
   mutation DeleteAircraft($id: ID!) {
-    deleteAircraft(input: { id: $id }) {
+    adminDeleteAircraft(input: { id: $id }) {
       id
     }
   }
@@ -40,7 +40,7 @@ export const DELETE_AIRCRAFT = gql`
 
 export const DELETE_AIRCRAFTS = gql`
   mutation DeleteAircrafts($ids: [ID!]!) {
-    deleteAircrafts(input: { ids: $ids }) {
+    adminDeleteAircrafts(input: { ids: $ids }) {
       deletedIds
     }
   }

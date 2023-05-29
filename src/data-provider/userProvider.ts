@@ -24,16 +24,16 @@ const userProvider = (client: any) => ({
     };
 
     const { data } = await client.query({ query: GET_USERS, variables });
-    return { data: data.users, total: data.users.length };
+    return { data: data.adminUsers, total: data.adminUsers.length };
   },
   create: async (params: any) => {
     const { data } = await client.mutate({ mutation: CREATE_USER, variables: {...params.data}, refetchQueries: [{ query: GET_USERS }] });
     await client.query({ query: GET_USERS });
-    return { data: data.createUser };
+    return { data: data.adminCreateUser };
   },
   update: async (params: any) => {
     const { data } = await client.mutate({ mutation: UPDATE_USER, variables: params.data });
-    return { data: data.updateUser };
+    return { data: data.adminUpdateUser };
   },
   delete: async (params: any) => {
     const { data } = await client.mutate({
@@ -42,7 +42,7 @@ const userProvider = (client: any) => ({
       refetchQueries: [{ query: GET_USERS }],
     });
 
-    return { data: data.deleteUser.id };
+    return { data: data.adminDeleteUser.id };
   },
   deleteMany: async (params: any) => {
     const { data } = await client.mutate({
@@ -56,8 +56,7 @@ const userProvider = (client: any) => ({
   },
   getOne: async (params: any) => {
     const { data } = await client.query({ query: GET_USER, variables: { id: params.id } });
-    console.log(data)
-    return { data: { ...data.user } };
+    return { data: data.adminUser };
   },
 });
 
