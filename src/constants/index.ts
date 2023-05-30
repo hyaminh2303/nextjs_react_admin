@@ -1,4 +1,3 @@
-export const availableRoles = [
-  'administrator',
-  'coordinator',
+export const loginableUserType = [
+  'admin',
 ];

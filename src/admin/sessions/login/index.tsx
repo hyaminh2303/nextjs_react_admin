@@ -6,7 +6,7 @@ import { TextField, Button, Typography } from '@mui/material';
 import { makeStyles } from '@material-ui/styles';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
-import { availableRoles } from '../../../constants';
+import { loginableUserType } from '../../../constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,13 +63,13 @@ const LoginPage: React.FC = (props) => {
     }
   };
 
-  const getUserRole = async () => {
+  const getUserType = async () => {
     try {
         const cognitoUser = await Auth.currentAuthenticatedUser({bypassCache: true});
         const userAttributes = cognitoUser.attributes;
-        const userRole = userAttributes['custom:user_type'];
+        const userType = userAttributes['custom:user_type'];
 
-        return userRole;
+        return userType;
     } catch (error) {
         console.error('Error fetching user role', error);
         throw error;
@@ -80,10 +80,10 @@ const LoginPage: React.FC = (props) => {
     event.preventDefault();
     try {
       await Auth.signIn(email, password);
-      const userRole = await getUserRole();
+      const userType = await getUserType();
 
-      if (!availableRoles.includes(userRole)) {
-        // throw new Error('Only admins can log in');
+      if (!loginableUserType.includes(userType)) {
+        throw new Error('Only admin can log in');
       }
 
       login({ email });
