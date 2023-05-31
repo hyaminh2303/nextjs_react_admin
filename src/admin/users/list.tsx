@@ -18,6 +18,7 @@ const UserList: React.FC = (props) => (
       <NumberField source="id" label="ID" data-testid="id" />
       <EmailField source="email" label="Email" data-testid="email" />
       <TextField source="userType" label="User Type" data-testid="userType" />
+      <TextField source="phoneNumber" label="Phone Number" data-testid="phoneNumber" />
       <DateField source="createdAt" label="Created At" data-testid="createdAt" />
       <DateField source="updatedAt" label="Updated At" data-testid="updatedAt" />
     </Datagrid>

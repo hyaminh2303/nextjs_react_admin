@@ -40,6 +40,7 @@ const UserCreate: React.FC = (props) => {
               <SelectArrayInput source="userRoles" label="User Roles" choices={userRoles} />
           }
         <TextInput source="email" label="Email" />
+        <TextInput source="phoneNumber" label="Phone Number" />
         <PasswordInput source="password" label="Password" />
       </SimpleForm>
     </Create>

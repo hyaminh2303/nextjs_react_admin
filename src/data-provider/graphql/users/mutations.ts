@@ -1,12 +1,13 @@
 import { gql } from '@apollo/client';
 
 export const CREATE_USER = gql`
-  mutation CreateUser($userType: String!, $userRoles: [String!], $email: String!, $password: String!) {
-    adminCreateUser(input: { userType: $userType, userRoles: $userRoles, email: $email, password: $password }) {
+  mutation CreateUser($userType: String!, $userRoles: [String!], $email: String!, $phoneNumber: String, $password: String!) {
+    adminCreateUser(input: { userType: $userType, userRoles: $userRoles, email: $email, phoneNumber: $phoneNumber, password: $password }) {
       id
       userType
       userRoles
       email
+      phoneNumber
       createdAt
       updatedAt
     }
@@ -14,12 +15,13 @@ export const CREATE_USER = gql`
 `;
 
 export const UPDATE_USER = gql`
-  mutation UpdateUser($id: ID!, $userType: String, $userRoles: [String!], $email: String, $password: String) {
-    adminUpdateUser(input: { id: $id, userType: $userType, userRoles: $userRoles, email: $email, password: $password }) {
+  mutation UpdateUser($id: ID!, $userType: String, $userRoles: [String!], $email: String, $phoneNumber: String, $password: String) {
+    adminUpdateUser(input: { id: $id, userType: $userType, userRoles: $userRoles, email: $email, phoneNumber: $phoneNumber, password: $password }) {
       id
       userType
       userRoles
       email
+      phoneNumber
       createdAt
       updatedAt
     }
